@@ -1,10 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
   @Get()
-  findAll(): string {
-    return 'This action returns all cats';
+  findAll(@Query('age') age: number, @Query('breed') breed: string): string {
+    return `This action returns all cats filtered by age: ${age} and breed: ${breed}`;
   }
 
   @Get(':id')

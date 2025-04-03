@@ -1,10 +1,17 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { CatsService } from './cats.service';
+import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
+
   @Get()
-  findAll(@Query('age') age: number, @Query('breed') breed: string): string {
-    return `This action returns all cats filtered by age: ${age} and breed: ${breed}`;
+  async findAll(
+    @Query('age') age: number,
+    @Query('breed') breed: string,
+  ): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
   @Get(':id')
